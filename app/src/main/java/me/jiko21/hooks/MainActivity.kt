@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import me.jiko21.hooks.components.SampleDialog
+import me.jiko21.hooks.hooks.useModal
 import me.jiko21.hooks.ui.theme.HooksSampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,20 +28,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Container() {
-    var isOpen by remember {
-        mutableStateOf(false)
-    }
-    val toggleClose = fun() {
-        isOpen = false
-    }
+    val (isOpen, toggleClose) = useModal()
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Button(
-            onClick = {
-                isOpen = true
-            },
+            onClick = toggleClose,
         ) {
             Text("Click me")
         }
