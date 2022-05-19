@@ -4,12 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import me.jiko21.hooks.components.SampleDialog
 import me.jiko21.hooks.ui.theme.HooksSampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,27 +19,39 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HooksSampleTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                Container()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun Container() {
+    var isOpen by remember {
+        mutableStateOf(false)
+    }
+    val toggleClose = fun() {
+        isOpen = false
+    }
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Button(
+            onClick = {
+                isOpen = true
+            },
+        ) {
+            Text("Click me")
+        }
+        SampleDialog(isOpened = isOpen, onDismiss = toggleClose, onOk = toggleClose)
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun ContainerPreview() {
     HooksSampleTheme {
-        Greeting("Android")
+        Container()
     }
 }
