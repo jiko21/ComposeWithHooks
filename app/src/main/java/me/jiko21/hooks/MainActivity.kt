@@ -3,6 +3,7 @@ package me.jiko21.hooks
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -28,17 +29,37 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Container() {
-    val (isOpen, toggleClose) = useModal()
+    val (isOpen1, toggleClose1) = useModal()
+    val (isOpen2, toggleClose2) = useModal()
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Button(
-            onClick = toggleClose,
-        ) {
-            Text("Click me")
+        Column {
+            Button(
+                onClick = toggleClose1,
+            ) {
+                Text("Click me1")
+            }
+            Button(
+                onClick = toggleClose2,
+            ) {
+                Text("Click me2")
+            }
         }
-        SampleDialog(isOpened = isOpen, onDismiss = toggleClose, onOk = toggleClose)
+        SampleDialog(
+            text = "modal1",
+            isOpened = isOpen1,
+            onDismiss = toggleClose1,
+            onOk = toggleClose1
+        )
+
+        SampleDialog(
+            text = "modal2",
+            isOpened = isOpen2,
+            onDismiss = toggleClose2,
+            onOk = toggleClose2
+        )
     }
 }
 

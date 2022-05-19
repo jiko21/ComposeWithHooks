@@ -7,14 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun SampleDialog(isOpened: Boolean, onDismiss: () -> Unit, onOk: () -> Unit) {
+fun SampleDialog(text: String, isOpened: Boolean, onDismiss: () -> Unit, onOk: () -> Unit) {
 
     if (isOpened) {
         AlertDialog(
             onDismissRequest = onDismiss,
             title = { Text("sample") },
             text = {
-                Text("Test")
+                Text(text)
             },
             confirmButton = {
                 TextButton(
@@ -39,5 +39,5 @@ fun SampleDialog(isOpened: Boolean, onDismiss: () -> Unit, onOk: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewSampleDialog() {
-    SampleDialog(true, onDismiss = {}, onOk = {})
+    SampleDialog("text",true, onDismiss = {}, onOk = {})
 }
